@@ -1,42 +1,44 @@
-export const isSameDay = (date1, date2) => {
-  return date1.toDateString() === date2.toDateString();
-};
-
-export const getMonthData = () => {
-  const daysInMonth = 31;
-  const firstDayOfWeek = 3; // Example: Start on Wednesday
-  const totalCells = 35;
-  const today = new Date();
+export const getMonthData = (date) => {
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const firstDayOfMonth = new Date(year, month, 1);
+  const lastDayOfMonth = new Date(year, month + 1, 0);
+  const firstDayOfWeek = firstDayOfMonth.getDay();
+  const lastDate = lastDayOfMonth.getDate();
 
   let days = [];
 
-  // Get the previous month's days
-  const prevMonthDays = firstDayOfWeek;
-  const prevMonthDate = new Date(today.getFullYear(), today.getMonth(), 0);
-  for (let i = prevMonthDays; i > 0; i--) {
+  // Add previous month's days to fill the first row
+  const prevMonthLastDate = new Date(year, month, 0).getDate();
+  for (let i = firstDayOfWeek - 1; i >= 0; i--) {
     days.push({
-      day: prevMonthDate.getDate() - i + 1,
-      isToday: false,
+      day: prevMonthLastDate - i,
       isPrevMonth: true,
+      isToday: false,
     });
   }
 
-  // Current month days
-  for (let i = 1; i <= daysInMonth; i++) {
-    const currentDate = new Date(today.getFullYear(), today.getMonth(), i);
+  // Add current month's days
+  for (let i = 1; i <= lastDate; i++) {
+    const isToday =
+      i === new Date().getDate() &&
+      month === new Date().getMonth() &&
+      year === new Date().getFullYear();
+
     days.push({
       day: i,
-      isToday: isSameDay(today, currentDate),
       isPrevMonth: false,
+      isToday: isToday,
     });
   }
 
-  // Fill remaining cells
-  while (days.length < totalCells) {
+  // Fill remaining slots up to 35 (7×5 Grid)
+  const remainingSlots = 35 - days.length;
+  for (let i = 1; i <= remainingSlots; i++) {
     days.push({
-      day: null,
+      day: i,
+      isNextMonth: true,
       isToday: false,
-      isPrevMonth: false,
     });
   }
 

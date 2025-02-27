@@ -6,9 +6,8 @@ import useCalendar from "./hooks/useCalendar";
 
 const Calendar = () => {
   const styles = useCalendarStyles();
-  const { currentDate, calendarDays, highlightToday, goToToday } = useCalendar();
+  const { currentDate, calendarDays, goToToday, goToPreviousMonth, goToNextMonth } = useCalendar();
 
-  // Sample users with profile pictures
   const users = [
     { id: 1, name: "Ryan Thompson", profilePic: "https://i.pravatar.cc/32?img=1" },
     { id: 2, name: "Karen Smith", profilePic: "https://i.pravatar.cc/32?img=2" },
@@ -18,13 +17,23 @@ const Calendar = () => {
     { id: 6, name: "Sarah Miller", profilePic: "https://i.pravatar.cc/32?img=6" },
     { id: 7, name: "Michael Brown", profilePic: "https://i.pravatar.cc/32?img=7" },
   ];
-  
 
   return (
     <div className={styles.calendarWrapper}>
       <div className={styles.calendarContainer}>
-        <CalendarHeader users={users} currentDate={currentDate} goToToday={goToToday} />
-        <CalendarGrid calendarDays={calendarDays} highlightToday={highlightToday} styles={styles} />
+        <CalendarHeader
+          users={users}
+          currentDate={currentDate}
+          goToToday={goToToday}
+          goToPreviousMonth={goToPreviousMonth}
+          goToNextMonth={goToNextMonth}
+        />
+
+        <CalendarGrid
+          calendarDays={calendarDays}
+          highlightToday={true}
+          styles={styles}
+        />
       </div>
     </div>
   );

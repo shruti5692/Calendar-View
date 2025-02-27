@@ -1,10 +1,9 @@
-// CalendarStyles.js
 import { makeStyles } from "@fluentui/react-components";
 
 export const useCalendarStyles = makeStyles({
   calendarWrapper: {
     fontFamily: "'Segoe UI', sans-serif",
-    maxWidth: "1200px", // Increased width
+    maxWidth: "1200px",
     margin: "0 auto",
   },
   calendarContainer: {
@@ -18,7 +17,6 @@ export const useCalendarStyles = makeStyles({
     justifyContent: "space-between",
     alignItems: "center",
     padding: "20px 24px",
-    //borderBottom: "1px solid #e5e7eb",
   },
   headerLeft: {
     display: "flex",
@@ -30,14 +28,54 @@ export const useCalendarStyles = makeStyles({
     alignItems: "center",
     gap: "20px",
   },
+
+  /** ✅ Month Switcher Styles **/
+ monthSwitcher: {
+  display: "flex",
+  alignItems: "center",
+  gap: "10px",
+  padding: "6px 12px",
+  borderRadius: "6px",
+},
+
+switcherButton: {
+  backgroundColor: "#23262e",
+  color: "white",
+  border: "none",
+  padding: "4px 8px", // Reduced button size
+  borderRadius: "4px",
+  fontSize: "14px", // Adjusted font size
+  cursor: "pointer",
+  transition: "background-color 0.2s ease, color 0.2s ease",
+  "&:hover": {
+    backgroundColor: "#525a69",
+    color: "#ffffff",
+  },
+},
+
+switcherLabel: {
+  fontSize: "16px",
+  fontWeight: "bold",
+  color: "#a4aec1",
+  backgroundColor: "#23262e",
+  padding: "6px 12px", // Increased height
+  borderRadius: "4px",
+  minHeight: "32px", // Ensuring label has a proper height
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+},
+
+  
+
   avatarGroup: {
     display: "flex",
     alignItems: "center",
   },
   customAvatar: {
     border: "2px solid white",
-    marginLeft: "-8px", // Increased overlap effect
-    borderRadius: "50%", // Circular avatars
+    marginLeft: "-8px",
+    borderRadius: "50%",
     "&:first-child": {
       marginLeft: "0",
     },
@@ -56,45 +94,31 @@ export const useCalendarStyles = makeStyles({
     width: "32px",
     borderRadius: "50%",
   },
-  addPersonButton: {
-    backgroundColor: "#1f252c",
-    color: "#a4aec1",
-  height: "40px", // Slightly increased size
-  width: "40px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  borderRadius: "50%",
-  cursor: "pointer",
-  transition: "background-color 0.2s ease, color 0.2s ease",
-  "&:hover": {
-    backgroundColor: "#2b2e36", // Subtle background change
-    color: "#b4b8c4", // Slightly lighter text color
-  },
-  },
 
   todayButton: {
-    fontSize: "16px", // Slightly increased size
-  backgroundColor: "#23262e",
-  color: "#a4aec1",
-  padding: "8px 16px",
-  borderRadius: "6px",
-  cursor: "pointer",
-  transition: "background-color 0.2s ease",
-  "&:hover": {
-    backgroundColor: "#525a69", // Slightly lighter shade on hover
-  },
+    fontSize: "16px",
+    backgroundColor: "#23262e",
+    color: "#a4aec1",
+    padding: "8px 16px",
+    borderRadius: "6px",
+    cursor: "pointer",
+    transition: "background-color 0.2s ease",
+    "&:hover": {
+      backgroundColor: "#525a69",
+    },
   },
 
   gridContainer: {
-    padding: "20px",
     backgroundColor: "#202329",
+    marginLeft: "20px",
+    marginRight: "20px",
+    marginBottom: "20px",
   },
   grid: {
     display: "grid",
     gridTemplateColumns: "repeat(7, 1fr)",
     gap: "3px",
-    border: "1px solid #313639", // Ensure visible grid lines
+    border: "1px solid #313639",
   },
   headerCell: {
     textAlign: "center",
@@ -124,12 +148,12 @@ export const useCalendarStyles = makeStyles({
     width: "28px",
     height: "28px",
     borderRadius: "50%",
-    backgroundColor: "rgba(116, 128, 152, 0.3)", // Semi-transparent
+    backgroundColor: "rgba(116, 128, 152, 0.4)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
   },
-  
+
   dayContent: {
     width: "100%",
     display: "flex",
@@ -139,11 +163,28 @@ export const useCalendarStyles = makeStyles({
     position: "relative",
   },
   dayNumber: {
-    position: "relative", // Ensures correct positioning inside cell
-    fontSize: "16px",
-    fontWeight: "600",
+    position: "absolute",
+    top: "6px",
+    left: "50%",
+    transform: "translateX(-50%)",
+    fontSize: "14px",
+    fontWeight: "bold",
     color: "#9a9fa5",
   },
-  
-  
+  weekdayHeader: {
+    display: "grid",
+    gridTemplateColumns: "repeat(7, 1fr)",
+    textAlign: "center",
+    fontWeight: "bold",
+    padding: "4px 0",
+    borderBottom: "1px solid #5a5d63",
+    height: "28px",
+    backgroundColor: "#202329",
+  },
+  weekdayCell: {
+    padding: "6px",
+    borderRight: "1px solid #5a5d63",
+    borderBottom: "1px solid #5a5d63",
+    color: "#9a9fa5",
+  },
 });

@@ -1,20 +1,25 @@
 import React from "react";
-import { Text } from "@fluentui/react-components";
 import { useCalendarStyles } from "./CalendarStyles";
 import AvatarGroupComponent from "./AvatarGroup";
 import TodayButton from "./TodayButton";
+import MonthSwitcher from "./MonthSwitcher";
 
-const CalendarHeader = ({ users, currentDate, goToToday }) => {
+const CalendarHeader = ({ users, currentDate, goToToday, goToPreviousMonth, goToNextMonth }) => {
   const styles = useCalendarStyles();
-
-  const formatMonthYear = (date) => {
-    return date.toLocaleDateString("default", { month: "long", year: "numeric" });
-  };
 
   return (
     <div className={styles.header}>
       <div className={styles.headerLeft}>
         <AvatarGroupComponent users={users} />
+      </div>
+
+      {/* This div ensures MonthSwitcher is visible */}
+      <div className={styles.headerCenter} style={{ flex: 1, display: "flex", justifyContent: "center" }}>
+        <MonthSwitcher
+          currentDate={currentDate}
+          goToPreviousMonth={goToPreviousMonth}
+          goToNextMonth={goToNextMonth}
+        />
       </div>
 
       <div className={styles.headerRight}>

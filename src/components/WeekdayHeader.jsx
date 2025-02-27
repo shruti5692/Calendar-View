@@ -1,24 +1,10 @@
 import React from "react";
-import { makeStyles } from "@fluentui/react-components";
-
-const useStyles = makeStyles({
-  weekdayHeader: {
-    display: "grid",
-    gridTemplateColumns: "repeat(7, 1fr)",
-    textAlign: "center",
-    fontWeight: "bold",
-    padding: "8px 0",
-    borderBottom: "1px solid #ddd",
-  },
-  weekdayCell: {
-    padding: "4px",
-  },
-});
+import { useCalendarStyles } from './CalendarStyles';
 
 const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 const WeekdayHeader = () => {
-  const styles = useStyles();
+  const styles = useCalendarStyles();
 
   return (
     <div className={styles.weekdayHeader}>
