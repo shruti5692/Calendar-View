@@ -1,28 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@fluentui/react-components";
 
-const TaskPopup = ({ selectedDay, onCreate, onClose }) => {
+const TaskPopup = ({ selectedDay, selectedTask, isEditMode, onCreate, onDelete, onClose, availableColors }) => {
   const [taskName, setTaskName] = useState("");
   const [taskSpan, setTaskSpan] = useState(1);
+  const [taskColor, setTaskColor] = useState("");
 
-  // Log when the component mounts
   useEffect(() => {
-    console.log("TaskPopup mounted for day:", selectedDay?.day);
-  }, [selectedDay]);
-
-  // Handler for form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form submitted with task:", taskName);
+    console.log("TaskPopup opened for day:", selectedDay?.day);
     
-    if (taskName.trim()) {
-      onCreate(taskName, taskSpan);
+    // Initialize form with task data if in edit mode
+    if (isEditMode && selectedTask) {
+      setTaskName(selectedTask.name);
+      setTaskSpan(selectedTask.span);
+      setTaskColor(selectedTask.color || availableColors[0]);
+    } else {
       setTaskName("");
       setTaskSpan(1);
+      setTaskColor(availableColors[0]);
+    }
+  }, [selectedDay, selectedTask, isEditMode, availableColors]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (taskName.trim()) {
+      onCreate(taskName, taskSpan, taskColor);
+      setTaskName("");
+      setTaskSpan(1);
+      setTaskColor(availableColors[0]);
     }
   };
 
-  // Styles for popup components
   const styles = {
     popupOverlay: {
       position: "fixed",
@@ -40,7 +49,6 @@ const TaskPopup = ({ selectedDay, onCreate, onClose }) => {
       backgroundColor: "#fff",
       padding: "20px",
       borderRadius: "8px",
-      boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
       width: "300px",
       display: "flex",
       flexDirection: "column",
@@ -53,19 +61,40 @@ const TaskPopup = ({ selectedDay, onCreate, onClose }) => {
       fontSize: "14px",
       marginBottom: "10px",
     },
+    colorContainer: {
+      display: "flex",
+      flexWrap: "wrap",
+      gap: "8px",
+      marginBottom: "10px",
+    },
+    colorOption: {
+      width: "24px",
+      height: "24px",
+      borderRadius: "50%",
+      cursor: "pointer",
+      border: "2px solid transparent",
+    },
+    selectedColorOption: {
+      border: "2px solid black",
+    },
     buttonContainer: {
       display: "flex",
       justifyContent: "flex-end",
       gap: "10px",
       marginTop: "10px",
+    },
+    deleteButton: {
+      marginRight: "auto",
+      backgroundColor: "#f44336",
+      color: "white",
     }
   };
 
   return (
     <div style={styles.popupOverlay} onClick={onClose}>
       <div style={styles.popupBox} onClick={(e) => e.stopPropagation()}>
-        <h3>Create Task for Day {selectedDay?.day}</h3>
-        
+        <h3>{isEditMode ? `Edit Task` : `Create Task for Day ${selectedDay?.day}`}</h3>
+
         <form onSubmit={handleSubmit}>
           <input
             style={styles.inputField}
@@ -75,7 +104,7 @@ const TaskPopup = ({ selectedDay, onCreate, onClose }) => {
             placeholder="Task Name"
             required
           />
-          
+
           <input
             style={styles.inputField}
             type="number"
@@ -84,10 +113,38 @@ const TaskPopup = ({ selectedDay, onCreate, onClose }) => {
             placeholder="Days"
             min="1"
           />
-          
+
+          <div>
+            <label>Color:</label>
+            <div style={styles.colorContainer}>
+              {availableColors.map((color, index) => (
+                <div
+                  key={`color-${index}`}
+                  style={{
+                    ...styles.colorOption,
+                    backgroundColor: color,
+                    ...(color === taskColor ? styles.selectedColorOption : {})
+                  }}
+                  onClick={() => setTaskColor(color)}
+                />
+              ))}
+            </div>
+          </div>
+
           <div style={styles.buttonContainer}>
+            {isEditMode && (
+              <Button 
+                type="button" 
+                onClick={onDelete}
+                style={styles.deleteButton}
+              >
+                Delete
+              </Button>
+            )}
             <Button type="button" onClick={onClose}>Cancel</Button>
-            <Button type="submit" appearance="primary">Create</Button>
+            <Button type="submit" appearance="primary">
+              {isEditMode ? "Update" : "Create"}
+            </Button>
           </div>
         </form>
       </div>

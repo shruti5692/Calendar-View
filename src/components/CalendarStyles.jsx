@@ -185,6 +185,24 @@ export const useCalendarStyles = makeStyles({
     borderBottom: "1px solid #5a5d63",
     color: "#9a9fa5",
   },
+  weekRow: {
+    display: 'flex',
+    width: '100%',
+    position: 'relative'
+  },
+  taskContainer: {
+    position: 'absolute',
+    top: '24px', // Below the day number
+    left: '0',
+    width: '100%',
+    zIndex: 5
+  },
+  taskBar: {
+    margin: '2px 0',
+    height: '18px',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
+  }
   // popupOverlay: {
   //   position: "fixed",
   //   top: 0,
