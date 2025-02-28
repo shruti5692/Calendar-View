@@ -30,43 +30,41 @@ export const useCalendarStyles = makeStyles({
   },
 
   /** ✅ Month Switcher Styles **/
- monthSwitcher: {
-  display: "flex",
-  alignItems: "center",
-  gap: "10px",
-  padding: "6px 12px",
-  borderRadius: "6px",
-},
-
-switcherButton: {
-  backgroundColor: "#23262e",
-  color: "white",
-  border: "none",
-  padding: "4px 8px", // Reduced button size
-  borderRadius: "4px",
-  fontSize: "14px", // Adjusted font size
-  cursor: "pointer",
-  transition: "background-color 0.2s ease, color 0.2s ease",
-  "&:hover": {
-    backgroundColor: "#525a69",
-    color: "#ffffff",
+  monthSwitcher: {
+    display: "flex",
+    alignItems: "center",
+    gap: "10px",
+    padding: "6px 12px",
+    borderRadius: "6px",
   },
-},
 
-switcherLabel: {
-  fontSize: "16px",
-  fontWeight: "bold",
-  color: "#a4aec1",
-  backgroundColor: "#23262e",
-  padding: "6px 12px", // Increased height
-  borderRadius: "4px",
-  minHeight: "32px", // Ensuring label has a proper height
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-},
+  switcherButton: {
+    backgroundColor: "#23262e",
+    color: "white",
+    border: "none",
+    padding: "4px 8px", // Reduced button size
+    borderRadius: "4px",
+    fontSize: "14px", // Adjusted font size
+    cursor: "pointer",
+    transition: "background-color 0.2s ease, color 0.2s ease",
+    "&:hover": {
+      backgroundColor: "#525a69",
+      color: "#ffffff",
+    },
+  },
 
-  
+  switcherLabel: {
+    fontSize: "16px",
+    fontWeight: "bold",
+    color: "#a4aec1",
+    backgroundColor: "#23262e",
+    padding: "6px 12px", // Increased height
+    borderRadius: "4px",
+    minHeight: "32px", // Ensuring label has a proper height
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
 
   avatarGroup: {
     display: "flex",
@@ -187,4 +185,26 @@ switcherLabel: {
     borderBottom: "1px solid #5a5d63",
     color: "#9a9fa5",
   },
+  // popupOverlay: {
+  //   position: "fixed",
+  //   top: 0,
+  //   left: 0,
+  //   width: "100%",
+  //   height: "100%",
+  //   backgroundColor: "rgba(0, 0, 0, 0.6)",
+  //   display: "flex",
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  //   zIndex: 1000,
+  // },
+  // popupBox: {
+  //   backgroundColor: "#fff",
+  //   padding: "20px",
+  //   borderRadius: "8px",
+  //   boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
+  //   width: "300px",
+  //   display: "flex",
+  //   flexDirection: "column",
+  //   gap: "10px",
+  // },
 });

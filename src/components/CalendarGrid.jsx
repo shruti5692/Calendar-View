@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useCalendarStyles } from "./CalendarStyles";
 import DayCell from "./DayCell";
 import TaskPopup from "./TaskPopup";
@@ -7,32 +7,43 @@ const CalendarGrid = ({ calendarDays, highlightToday }) => {
   const styles = useCalendarStyles();
   const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-  // State to manage popup visibility and selected day
-  const [popupOpen, setPopupOpen] = useState(false);
   const [selectedDay, setSelectedDay] = useState(null);
-  const [tasks, setTasks] = useState([]); // Store tasks
+  const [showPopup, setShowPopup] = useState(false);
+  const [tasks, setTasks] = useState([]);
 
-  // Function to open popup when clicking a day
+  // Log on mount to verify props
+  useEffect(() => {
+    console.log("CalendarGrid mounted with days:", calendarDays?.length);
+    console.log("Sample day structure:", calendarDays[0]);
+  }, [calendarDays]);
+
+  // Handler for day cell clicks
   const handleDayClick = (day) => {
-    if (!day?.date) return;
-    setSelectedDay(day);
-    setPopupOpen(true);
+    console.log("handleDayClick called with:", day);
+    
+    // Accept any day object, even without date property
+    if (day) {
+      console.log("Setting selectedDay and showPopup to true");
+      setSelectedDay(day);
+      setShowPopup(true);
+    }
   };
 
-  // Function to handle task creation
+  // Handler for task creation
   const handleCreateTask = (taskName, span) => {
+    console.log("Creating task:", taskName, "for day:", selectedDay?.day);
+    
     if (!selectedDay) return;
 
-    // Store the new task
     const newTask = {
-      id: Date.now(), // Unique ID
+      id: Date.now(),
       name: taskName,
-      startDate: selectedDay.date,
-      span: span, // How many days it covers
+      day: selectedDay.day,
+      span: span,
     };
 
-    setTasks([...tasks, newTask]); // Add to task list
-    setPopupOpen(false);
+    setTasks([...tasks, newTask]);
+    setShowPopup(false);
   };
 
   return (
@@ -45,23 +56,26 @@ const CalendarGrid = ({ calendarDays, highlightToday }) => {
           </div>
         ))}
 
-        {/* Calendar days */}
+        {/* Calendar day cells */}
         {calendarDays.map((day, index) => (
           <DayCell
-            key={day.date ? day.date.toISOString() : `empty-${index}`}
+            key={`day-${index}-${day.day}`}
             day={day}
             highlightToday={highlightToday}
-            onClick={handleDayClick} // Open popup when clicked
-            tasks={tasks} // Pass tasks to show them in the grid
+            onClick={handleDayClick}
           />
         ))}
       </div>
 
-      {/* Task Popup */}
-      {popupOpen && (
+      {/* Task popup - rendered conditionally */}
+      {showPopup && selectedDay && (
         <TaskPopup
-          onClose={() => setPopupOpen(false)}
+          selectedDay={selectedDay}
           onCreate={handleCreateTask}
+          onClose={() => {
+            console.log("Closing popup");
+            setShowPopup(false);
+          }}
         />
       )}
     </div>
