@@ -42,7 +42,7 @@ export const useCalendarStyles = makeStyles({
     backgroundColor: "#23262e",
     color: "white",
     border: "none",
-    padding: "4px 8px", // Reduced button size
+    padding: "4px 4px", // Reduced button size
     borderRadius: "4px",
     fontSize: "14px", // Adjusted font size
     cursor: "pointer",
@@ -60,7 +60,7 @@ export const useCalendarStyles = makeStyles({
     backgroundColor: "#23262e",
     padding: "6px 12px", // Increased height
     borderRadius: "4px",
-    minHeight: "32px", // Ensuring label has a proper height
+    minHeight: "20px", // Ensuring label has a proper height
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -91,6 +91,20 @@ export const useCalendarStyles = makeStyles({
     height: "32px",
     width: "32px",
     borderRadius: "50%",
+  },
+  addPersonButton: {
+    backgroundColor: "#23262e",
+    color: "#a4aec1",
+    borderRadius: "50%",
+    width: "40px",
+    height: "30px",
+    marginLeft: "4px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    "&:hover": {
+      backgroundColor: "#525a69",
+    },
   },
 
   todayButton: {
@@ -192,7 +206,7 @@ export const useCalendarStyles = makeStyles({
   },
   taskContainer: {
     position: 'absolute',
-    top: '24px', // Below the day number
+    top: '-24px', // Below the day number
     left: '0',
     width: '100%',
     zIndex: 5
@@ -203,26 +217,4 @@ export const useCalendarStyles = makeStyles({
     overflow: 'hidden',
     textOverflow: 'ellipsis'
   }
-  // popupOverlay: {
-  //   position: "fixed",
-  //   top: 0,
-  //   left: 0,
-  //   width: "100%",
-  //   height: "100%",
-  //   backgroundColor: "rgba(0, 0, 0, 0.6)",
-  //   display: "flex",
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  //   zIndex: 1000,
-  // },
-  // popupBox: {
-  //   backgroundColor: "#fff",
-  //   padding: "20px",
-  //   borderRadius: "8px",
-  //   boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
-  //   width: "300px",
-  //   display: "flex",
-  //   flexDirection: "column",
-  //   gap: "10px",
-  // },
 });
