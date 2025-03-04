@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@fluentui/react-components";
-import { useCalendarStyles } from "./CalendarStyles";
+import { useCalendarStyles } from "../CalendarStyles";
 
 const MonthSwitcher = ({ currentDate, goToPreviousMonth, goToNextMonth }) => {
   const styles = useCalendarStyles(); // Get styles

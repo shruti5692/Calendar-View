@@ -1,7 +1,7 @@
 // TodayButton.jsx
 import React from 'react';
 import { Button } from "@fluentui/react-components";
-import { useCalendarStyles } from './CalendarStyles';
+import { useCalendarStyles } from '../CalendarStyles';
 
 const TodayButton = ({ goToToday }) => {
   const styles = useCalendarStyles();

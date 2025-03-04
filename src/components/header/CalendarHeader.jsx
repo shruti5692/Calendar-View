@@ -1,5 +1,5 @@
 import React from "react";
-import { useCalendarStyles } from "./CalendarStyles";
+import { useCalendarStyles } from "../CalendarStyles";
 import AvatarGroupComponent from "./AvatarGroup";
 import TodayButton from "./TodayButton";
 import MonthSwitcher from "./MonthSwitcher";

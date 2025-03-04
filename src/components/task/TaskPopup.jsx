@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@fluentui/react-components";
+import TaskPopupStyles from "./taskPopupStyles";
 
 const TaskPopup = ({ selectedDay, selectedTask, isEditMode, onCreate, onDelete, onClose, availableColors }) => {
   const [taskName, setTaskName] = useState("");
@@ -32,72 +33,14 @@ const TaskPopup = ({ selectedDay, selectedTask, isEditMode, onCreate, onDelete, 
     }
   };
 
-  const styles = {
-    popupOverlay: {
-      position: "fixed",
-      top: 0,
-      left: 0,
-      width: "100%",
-      height: "100%",
-      backgroundColor: "rgba(0, 0, 0, 0.6)",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      zIndex: 1000,
-    },
-    popupBox: {
-      backgroundColor: "#fff",
-      padding: "20px",
-      borderRadius: "8px",
-      width: "300px",
-      display: "flex",
-      flexDirection: "column",
-      gap: "10px",
-    },
-    inputField: {
-      padding: "8px",
-      border: "1px solid #ccc",
-      borderRadius: "4px",
-      fontSize: "14px",
-      marginBottom: "10px",
-    },
-    colorContainer: {
-      display: "flex",
-      flexWrap: "wrap",
-      gap: "8px",
-      marginBottom: "10px",
-    },
-    colorOption: {
-      width: "24px",
-      height: "24px",
-      borderRadius: "50%",
-      cursor: "pointer",
-      border: "2px solid transparent",
-    },
-    selectedColorOption: {
-      border: "2px solid black",
-    },
-    buttonContainer: {
-      display: "flex",
-      justifyContent: "flex-end",
-      gap: "10px",
-      marginTop: "10px",
-    },
-    deleteButton: {
-      marginRight: "auto",
-      backgroundColor: "#f44336",
-      color: "white",
-    }
-  };
-
   return (
-    <div style={styles.popupOverlay} onClick={onClose}>
-      <div style={styles.popupBox} onClick={(e) => e.stopPropagation()}>
+    <div style={TaskPopupStyles.popupOverlay} onClick={onClose}>
+      <div style={TaskPopupStyles.popupBox} onClick={(e) => e.stopPropagation()}>
         <h3>{isEditMode ? `Edit Task` : `Create Task for Day ${selectedDay?.day}`}</h3>
 
         <form onSubmit={handleSubmit}>
           <input
-            style={styles.inputField}
+            style={TaskPopupStyles.inputField}
             type="text"
             value={taskName}
             onChange={(e) => setTaskName(e.target.value)}
@@ -106,7 +49,7 @@ const TaskPopup = ({ selectedDay, selectedTask, isEditMode, onCreate, onDelete, 
           />
 
           <input
-            style={styles.inputField}
+            style={TaskPopupStyles.inputField}
             type="number"
             value={taskSpan}
             onChange={(e) => setTaskSpan(Number(e.target.value))}
@@ -116,14 +59,14 @@ const TaskPopup = ({ selectedDay, selectedTask, isEditMode, onCreate, onDelete, 
 
           <div>
             <label>Color:</label>
-            <div style={styles.colorContainer}>
+            <div style={TaskPopupStyles.colorContainer}>
               {availableColors.map((color, index) => (
                 <div
                   key={`color-${index}`}
                   style={{
-                    ...styles.colorOption,
+                    ...TaskPopupStyles.colorOption,
                     backgroundColor: color,
-                    ...(color === taskColor ? styles.selectedColorOption : {})
+                    ...(color === taskColor ? TaskPopupStyles.selectedColorOption : {})
                   }}
                   onClick={() => setTaskColor(color)}
                 />
@@ -131,12 +74,12 @@ const TaskPopup = ({ selectedDay, selectedTask, isEditMode, onCreate, onDelete, 
             </div>
           </div>
 
-          <div style={styles.buttonContainer}>
+          <div style={TaskPopupStyles.buttonContainer}>
             {isEditMode && (
               <Button 
                 type="button" 
                 onClick={onDelete}
-                style={styles.deleteButton}
+                style={TaskPopupStyles.deleteButton}
               >
                 Delete
               </Button>

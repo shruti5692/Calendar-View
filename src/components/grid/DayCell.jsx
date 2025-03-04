@@ -1,6 +1,6 @@
 import React from "react";
 import { mergeClasses } from "@fluentui/react-components";
-import { useCalendarStyles } from "./CalendarStyles";
+import { useCalendarStyles } from "../CalendarStyles";
 
 const DayCell = ({ day, dayIndex, highlightToday, onClick, onTaskClick, tasks, getDayByIndex }) => {
   const styles = useCalendarStyles();

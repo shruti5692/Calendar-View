@@ -1,7 +1,7 @@
 import React from "react";
 import { useCalendarStyles } from "./CalendarStyles";
-import CalendarHeader from "./CalendarHeader";
-import CalendarGrid from "./CalendarGrid";
+import CalendarHeader from "./header/CalendarHeader";
+import CalendarGrid from "./grid/CalendarGrid";
 import useCalendar from "./hooks/useCalendar";
 import users from "./data/Users";
 

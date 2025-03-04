@@ -8,7 +8,7 @@ import {
 import { 
   PersonAddFilled
 } from "@fluentui/react-icons";
-import { useCalendarStyles } from './CalendarStyles';
+import { useCalendarStyles } from '../CalendarStyles';
 
 const AvatarGroupComponent = ({ users = [] }) => {
   const styles = useCalendarStyles();
