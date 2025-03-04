@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { mergeClasses } from "@fluentui/react-components";
 import { useCalendarStyles } from "../CalendarStyles";
+import TaskDialog from "./TaskDialog";
 
-const DayCell = ({ day, dayIndex, highlightToday, onClick, onTaskClick, tasks, getDayByIndex }) => {
+const DayCell = ({ day, dayIndex, highlightToday, onClick, onTaskClick, tasks }) => {
   const styles = useCalendarStyles();
   const isHighlighted = highlightToday && day.isToday;
+  const cellPosition = dayIndex % 7;
+  const [showAllTasks, setShowAllTasks] = useState(false);
 
-  const cellPosition = dayIndex % 7; // 0-6 for position in week
+  const visibleTasks = tasks.slice(0, 2);
+  const maxVerticalPosition = visibleTasks.length > 0
+    ? Math.max(...visibleTasks.map(task => task.verticalPosition))
+    : -1;
+  const moreButtonTopPosition = `${(maxVerticalPosition + 1) * 20 + 2}px`;
 
   return (
     <div
@@ -21,40 +28,41 @@ const DayCell = ({ day, dayIndex, highlightToday, onClick, onTaskClick, tasks, g
 
       {/* Task bars */}
       <div className={styles.taskContainer} style={{ position: "relative" }}>
-        {tasks.map((task) => {
+        {tasks.slice(0, 2).map((task) => {
           const isStartCell = cellPosition === task.rowStartPosition;
           const isEndCell = cellPosition === task.rowStartPosition + task.rowSpan - 1;
-          
+
           let borderRadius = "0";
           if (isStartCell && isEndCell) borderRadius = "4px";
           else if (isStartCell) borderRadius = "4px 0 0 4px";
           else if (isEndCell) borderRadius = "0 4px 4px 0";
-          
-          const marginLeft = isStartCell ? '0' : '-1px'; // Overlap to make continuous
-          const marginRight = isEndCell ? '0' : '-1px';
-          const width = `calc(100% + 2px)`; // Slightly wider to hide seams
-          
-          // Calculate vertical position 
+
+          const marginLeft = isStartCell ? "0" : "-1px";
+          const marginRight = isEndCell ? "0" : "-1px";
+          const width = `calc(100% + 2px)`;
           const topPosition = `${task.verticalPosition * 20}px`;
-          
+
           return (
             <div
               key={`${task.segmentId}-pos-${cellPosition}`}
               className={styles.taskBar}
-              onClick={(e) => onTaskClick(task, e)}
+              onClick={(e) => {
+                e.stopPropagation();
+                onTaskClick(task, e);
+              }}
               style={{
-                width: width,
+                width,
                 backgroundColor: task.color || "blue",
                 padding: "2px",
-                borderRadius: borderRadius,
+                borderRadius,
                 color: "white",
                 fontSize: "12px",
                 textAlign: "center",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
-                marginLeft: marginLeft,
-                marginRight: marginRight,
+                marginLeft,
+                marginRight,
                 position: "absolute",
                 top: topPosition,
                 left: 0,
@@ -63,12 +71,54 @@ const DayCell = ({ day, dayIndex, highlightToday, onClick, onTaskClick, tasks, g
                 cursor: "pointer",
               }}
             >
-              {/* Only show name on first segment's first cell */}
-              {task.isFirstSegment && cellPosition === task.rowStartPosition ? task.name : ''}
+              {task.isFirstSegment && cellPosition === task.rowStartPosition ? task.name : ""}
             </div>
           );
         })}
+
+        {/* +X more button */}
+        {tasks.length > 2 && (
+          <div
+            className={styles.taskBar}
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowAllTasks(true);
+            }}
+            style={{
+              width: "calc(100% + 2px)",
+              backgroundColor: "#e0e0e0",
+              padding: "2px",
+              borderRadius: "4px",
+              color: "#333",
+              fontSize: "12px",
+              textAlign: "center",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              position: "absolute",
+              top: moreButtonTopPosition,
+              left: 0,
+              height: "18px",
+              zIndex: 1,
+              cursor: "pointer",
+              fontWeight: "bold"
+            }}
+          >
+            +{tasks.length - 2} more
+          </div>
+        )}
       </div>
+
+      {/* Task Dialog */}
+      {showAllTasks && (
+        <TaskDialog
+          open={showAllTasks}
+          onClose={() => setShowAllTasks(false)}
+          tasks={tasks}
+          day={day}
+          onTaskClick={onTaskClick}
+        />
+      )}
     </div>
   );
 };

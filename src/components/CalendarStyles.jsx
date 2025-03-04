@@ -216,5 +216,6 @@ export const useCalendarStyles = makeStyles({
     height: '18px',
     overflow: 'hidden',
     textOverflow: 'ellipsis'
-  }
+  },
+  
 });

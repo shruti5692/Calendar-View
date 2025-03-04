@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Button } from "@fluentui/react-components";
 import TaskPopupStyles from "./taskPopupStyles";
 
-const TaskPopup = ({ selectedDay, selectedTask, isEditMode, onCreate, onDelete, onClose, availableColors }) => {
+const TaskPopup = ({ selectedDay, selectedTask, isEditMode, onCreate, onDelete, onClose, availableColors, tasks }) => {
   const [taskName, setTaskName] = useState("");
   const [taskSpan, setTaskSpan] = useState(1);
   const [taskColor, setTaskColor] = useState("");
+  const [showAllTasks, setShowAllTasks] = useState(false);
 
   useEffect(() => {
     console.log("TaskPopup opened for day:", selectedDay?.day);
@@ -90,6 +91,20 @@ const TaskPopup = ({ selectedDay, selectedTask, isEditMode, onCreate, onDelete, 
             </Button>
           </div>
         </form>
+
+        {tasks?.length > 2 && !showAllTasks && (
+          <Button onClick={() => setShowAllTasks(true)}>+{tasks.length - 2} more</Button>
+        )}
+        {showAllTasks && (
+          <div>
+            {tasks.map((task, index) => (
+              <div key={index} style={{ backgroundColor: task.color, padding: "5px", margin: "2px 0" }}>
+                {task.name}
+              </div>
+            ))}
+            <Button onClick={() => setShowAllTasks(false)}>Show Less</Button>
+          </div>
+        )}
       </div>
     </div>
   );
