@@ -9,7 +9,7 @@ const TaskPopup = ({ selectedDay, selectedTask, isEditMode, onCreate, onDelete, 
   const [showAllTasks, setShowAllTasks] = useState(false);
 
   useEffect(() => {
-    console.log("TaskPopup opened for day:", selectedDay?.day);
+    
     
     // Initialize form with task data if in edit mode
     if (isEditMode && selectedTask) {

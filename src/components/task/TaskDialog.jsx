@@ -6,7 +6,7 @@ import {
   DialogBody,
   DialogTitle,
 } from "@fluentui/react-components";
-import { useDayCellStyles } from "./DayCellStyles";
+import { useDayCellStyles } from "./TaskDialogStyles.jsx";
 
 const TaskDialog = ({ open, onClose, tasks, day, onTaskClick }) => {
   const styles = useDayCellStyles();
@@ -16,7 +16,7 @@ const TaskDialog = ({ open, onClose, tasks, day, onTaskClick }) => {
       <DialogSurface>
         <DialogBody>
           <div className={styles.taskDialogContainer}>
-            <DialogTitle>Tasks for {day.day}</DialogTitle>
+            <DialogTitle>Tasks for Day {day.day}</DialogTitle>
             <div className={styles.taskDialogContent}>
               {tasks.map((task) => (
                 <div
@@ -31,7 +31,7 @@ const TaskDialog = ({ open, onClose, tasks, day, onTaskClick }) => {
                     padding: "8px",
                     margin: "5px 0",
                     borderRadius: "4px",
-                    color: "white",
+                    color: "#13280d",
                     cursor: "pointer",
                   }}
                 >
@@ -40,12 +40,12 @@ const TaskDialog = ({ open, onClose, tasks, day, onTaskClick }) => {
               ))}
             </div>
 
-            {/* Close button inside the dialog container */}
+            
             <div className={styles.taskDialogFooter}>
               <Button
                 onClick={(e) => {
-                  e.stopPropagation(); // Prevents event bubbling
-                  onClose(); // Closes the TaskDialog
+                  e.stopPropagation(); 
+                  onClose(); 
                 }}
               >
                 Close

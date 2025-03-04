@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useCalendarStyles } from "../CalendarStyles";
 import DayCell from "./DayCell";
 import TaskPopup from "../task/TaskPopup";
 import TaskManager from "../task/TaskManager";
 
-const CalendarGrid = ({ calendarDays, highlightToday }) => {
-  const styles = useCalendarStyles();
+const CalendarGrid = ({ calendarDays, highlightToday, currentDate, styles }) => {
   const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   const [selectedDay, setSelectedDay] = useState(null);
@@ -14,9 +12,20 @@ const CalendarGrid = ({ calendarDays, highlightToday }) => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [tasks, setTasks] = useState([]);
 
-  useEffect(() => {
-    console.log("CalendarGrid initialized with days:", calendarDays?.length);
-  }, [calendarDays]);
+  // Add a default value for currentDate in case it's not provided
+  const safeCurrentDate = currentDate || new Date();
+  
+  // Create a unique identifier for the current month/year
+  const currentMonthKey = `${safeCurrentDate.getFullYear()}-${safeCurrentDate.getMonth() + 1}`;
+
+ 
+
+  // Filter tasks for the current month
+  const currentMonthTasks = tasks.filter(task => {
+    if (!task.year || !task.month) return false;
+    return task.year === safeCurrentDate.getFullYear() && 
+           task.month === safeCurrentDate.getMonth() + 1;
+  });
 
   const handleDayClick = (day) => {
     if (day) {
@@ -46,14 +55,15 @@ const CalendarGrid = ({ calendarDays, highlightToday }) => {
 
         {calendarDays.map((day, index) => (
           <DayCell
-            key={`day-${index}-${day.day}`}
+            key={`${currentMonthKey}-day-${index}-${day.day}`}
             day={day}
             dayIndex={index}
             highlightToday={highlightToday}
             onClick={handleDayClick}
             onTaskClick={(task, event) => handleTaskClick(task, day, event)}
-            tasks={TaskManager.getTasksForDay(tasks, calendarDays, day, index)}
+            tasks={TaskManager.getTasksForDay(currentMonthTasks, calendarDays, day, index)}
             getDayByIndex={(idx) => calendarDays[idx] || null}
+            styles={styles}
           />
         ))}
       </div>
@@ -73,7 +83,8 @@ const CalendarGrid = ({ calendarDays, highlightToday }) => {
               taskName,
               span,
               color,
-              setShowPopup
+              setShowPopup,
+              safeCurrentDate
             )
           }
           onDelete={() =>

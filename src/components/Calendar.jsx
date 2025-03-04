@@ -23,6 +23,7 @@ const Calendar = () => {
         <CalendarGrid
           calendarDays={calendarDays}
           highlightToday={true}
+          currentDate={currentDate}
           styles={styles}
         />
       </div>

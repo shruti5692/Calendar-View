@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { mergeClasses } from "@fluentui/react-components";
 import { useCalendarStyles } from "../CalendarStyles";
-import TaskDialog from "./TaskDialog";
+import TaskDialog from "../task/TaskDialog";
 
 const DayCell = ({ day, dayIndex, highlightToday, onClick, onTaskClick, tasks }) => {
   const styles = useCalendarStyles();
@@ -55,7 +55,7 @@ const DayCell = ({ day, dayIndex, highlightToday, onClick, onTaskClick, tasks })
                 backgroundColor: task.color || "blue",
                 padding: "2px",
                 borderRadius,
-                color: "white",
+                color: "#13280d",
                 fontSize: "12px",
                 textAlign: "center",
                 whiteSpace: "nowrap",
@@ -86,10 +86,10 @@ const DayCell = ({ day, dayIndex, highlightToday, onClick, onTaskClick, tasks })
             }}
             style={{
               width: "calc(100% + 2px)",
-              backgroundColor: "#e0e0e0",
+              backgroundColor: "#252b30",
               padding: "2px",
               borderRadius: "4px",
-              color: "#333",
+              color: "#b7bdc1",
               fontSize: "12px",
               textAlign: "center",
               whiteSpace: "nowrap",

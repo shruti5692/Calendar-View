@@ -12,7 +12,8 @@ const TaskPopupStyles = {
       zIndex: 1000,
     },
     popupBox: {
-      backgroundColor: "#fff",
+      backgroundColor: "#252b30", // Dark background
+      color: "#ffffff", // Light text for contrast
       padding: "20px",
       borderRadius: "8px",
       width: "300px",
@@ -22,16 +23,19 @@ const TaskPopupStyles = {
     },
     inputField: {
       padding: "8px",
-      border: "1px solid #ccc",
+      border: "1px solid #555", // Lighter border for visibility
       borderRadius: "4px",
       fontSize: "14px",
-      marginBottom: "10px",
+      marginBottom: "20px",
+      marginTop: "-8px",
+      backgroundColor: "#1e2428", // Darker input background
+      color: "#ffffff", // White text
     },
     colorContainer: {
       display: "flex",
       flexWrap: "wrap",
       gap: "8px",
-      marginBottom: "10px",
+      marginBottom: "20px",
     },
     colorOption: {
       width: "24px",
@@ -41,7 +45,7 @@ const TaskPopupStyles = {
       border: "2px solid transparent",
     },
     selectedColorOption: {
-      border: "2px solid black",
+      border: "2px solid white", // White border for selected color
     },
     buttonContainer: {
       display: "flex",
