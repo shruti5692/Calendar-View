@@ -3,6 +3,7 @@ import { useCalendarStyles } from "../CalendarStyles";
 import AvatarGroupComponent from "./AvatarGroup";
 import TodayButton from "./TodayButton";
 import MonthSwitcher from "./MonthSwitcher";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 const CalendarHeader = ({ users, currentDate, goToToday, goToPreviousMonth, goToNextMonth }) => {
   const styles = useCalendarStyles();
@@ -24,7 +25,9 @@ const CalendarHeader = ({ users, currentDate, goToToday, goToPreviousMonth, goTo
 
       <div className={styles.headerRight}>
         <TodayButton goToToday={goToToday} />
+        <ThemeSwitcher />
       </div>
+      
     </div>
   );
 };

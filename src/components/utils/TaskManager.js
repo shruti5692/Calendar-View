@@ -1,4 +1,4 @@
-import TaskLayout from "./TaskLayout";
+import TaskLayout from "../task/TaskLayout";
 
 const TaskManager = {
   taskColors: ["#4287f5", "#f54242", "#42f563", "#f5a742", "#9c42f5", "#f542b3", "#42d7f5"],
